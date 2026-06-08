@@ -1,56 +1,81 @@
+Install Docker And DOcker compose And Jenkins 
+================================
 start-sonarqube
------------------------------------------------------------------------------
+--
 docker run -itd --name sonarqube-server -p 9000:9000 sonarqube:lts-community
 -----------------------------
 install trivy
-## Trivy_Installation_and_implementation
-
-<details><summary><b>Install Trivy</b></summary>
-  
-```bash
-sudo apt-get install wget apt-transport-https gnupg lsb-release
-```
-
-```bash
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
-```
-
-```bash 
-echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-```
-
-```bash
 sudo apt-get update
-```
+sudo apt-get install -y wget apt-transport-https gnupg lsb-release
 
-```bash
-sudo apt-get install trivy
-```
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
+gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | \
+sudo tee /etc/apt/sources.list.d/trivy.list
+
+sudo apt-get update
+sudo apt-get install -y trivy
 </details>
+-----------------------------------------------------------------------------------------------
 
-<details><summary><b>Trivy Commands</b></summary>
+GO To Jenkins And Install Plugins 
+---------
+1)OWASP
+2)SOnarqube Scanner
+3)Docker
+4)Sonar Quality Gates
+--------------------------------------------
 
-```bash
-trivy image imagename
-```
+Go to sonarqube Create webhook
+--
+Name-any name 
+URL-http://13.234.76.179:8080/sonarqube-webhook/ 
+then 
+GO to security -user
+and create TOKEN from existing user
+===========================
+setup sonarqube in jenkins
+Go to Jenkins manage Jenkins -> System
 
-```bash
-trivy fs --security-checks vuln,config   Folder_name_OR_Path
-```
+1)sonarqube server -add
 
-```bash
-trivy image --severity HIGH,CRITICAL image_name
-```
+Name
+Sonar
+Server URL
+Default is http://localhost:9000
+http://13.234.76.179:9000
+Server authentication token
+SonarQube authentication token. Mandatory when anonymous access is disabled.
 
-```bash
-trivy image -f json -o results.json image_name
-```
+add credentials 
+--
+Add Secret text
+Secret
+••••••••••••••••••••••••••••••••••••••••••••
+ID
+Sonar
+Description
+Sonar
+=======================
+Install SOnarquality gates
+GO to manage Jenkins TOols 
+-Install Sonarscanner
+Name
+Sonar
 
-```bash
-trivy repo repo-url
-```
+Version
+SonarQube Scanner 5.0.1.3006
 
-```bash
-trivy k8s --report summary cluster
-```
-</details>
+ 2) Install OWASP TOOL
+- Dependency CHeck
+- Name -dc
+  Install Automactic tick
+  Github.com - version 9.1.0
+  ====================
+
+  Make Declarative pipeline
+  select pipeline option
+  -Give namee
+  -
+
