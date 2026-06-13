@@ -78,4 +78,18 @@ SonarQube Scanner 5.0.1.3006
   select pipeline option
   -Give namee
   -
+  ################################################
+
+  Error fixing fast
+  -ADd jenkins to Docker Group
+  -check docker compose version is same as jenkinsfile
+  ====
+  commands
+  --------
+
+
+  sudo usermod -aG docker jenkins
+sudo systemctl restart docker
+sudo systemctl restart jenkins
+sudo chmod 666 /var/run/docker.sock
 
